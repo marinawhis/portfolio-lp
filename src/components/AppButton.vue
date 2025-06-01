@@ -1,13 +1,24 @@
 <script setup lang="ts">
 import {Button} from "@/components/ui/button";
 import {ArrowUpRight} from "lucide-vue-next";
+import {Linkedin} from "lucide-vue-next";
+import {Github} from "lucide-vue-next";
+import {AtSign} from "lucide-vue-next";
+import {Globe} from "lucide-vue-next";
 
-defineProps<{
+const props = defineProps<{
   title: string
-  subtitle?: string
   icon: string
   href: string
 }>()
+
+const iconComponent = {
+  "ArrowUpRight": ArrowUpRight,
+  "Linkedin": Linkedin,
+  "Github": Github,
+  "AtSign": AtSign,
+  "Globe": Globe,
+}[props.icon]
 </script>
 
 <template>
@@ -18,10 +29,9 @@ defineProps<{
   >
     <Button variant="ghost" class="p-8 w-full">
       <div class="flex items-center w-full gap-4">
-        <img :src="icon" alt="App icon" class="rounded-md size-6"/>
+       <component :is="iconComponent" class="text-muted-foreground"/>
         <div class="flex flex-col items-start w-full">
           <span class="text-base font-semibold">{{ title }}</span>
-          <span v-if="subtitle" class="text-sm text-muted-foreground">{{ subtitle }}</span>
         </div>
       </div>
       <ArrowUpRight :size="12" class="inline mx-1" />
